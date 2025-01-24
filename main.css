@@ -1,0 +1,42 @@
+.flexrow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexcol {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexcol>* {
+    flex: 1;
+}
+
+.flexrow>* {
+    flex: 1;
+}
+
+.stat {
+    margin: 4px 0px;
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+.stat .label {
+    flex: 2;
+    text-align: left;
+}
+
+.stat .value {
+    text-align: left;
+    flex: 0;
+    min-width: 18px;
+}
+
+#portrait {
+    border: 1px solid black;
+    margin: 0 5px 0 0;
+    flex: 0 0;
+    image-rendering: pixelated;
+}

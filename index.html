@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="main.css">
+<script src="pokeapi.js"></script>
+<html lang="en">
+
+<head>
+    Pokeapi dex tester
+</head>
+
+<body>
+    <!-- Search index -->
+    <div>
+        <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
+        <input id="search" type="button" value="search" disabled>
+    </div>
+    <section id="pokemon-data">
+        <h1 id="name"></h1>
+        <div id="types">
+            <span id="type-1"></span>
+            <span id="type-2"></span>
+        </div>
+        <div class="flexrow">
+            <img id="portrait" src="none" width="200" height="200">
+            <div id="stats" class="flexcol">
+                <div class="stat">
+                    <b class="label">HP</b>
+                    <div class="value" id="hp"></div>
+                </div>
+                <div class="stat">
+                    <b class="label">ATK</b>
+                    <div class="value" id="atk"></div>
+                </div>
+                <div class="stat">
+                    <b class="label">SATK</b>
+                    <div class="value" id="satk"></div>
+                </div>
+                <div class="stat">
+                    <b class="label">DEF</b>
+                    <div class="value" id="def"></div>
+                </div>
+                <div class="stat">
+                    <b class="label">SDEF</b>
+                    <div class="value" id="sdef"></div>
+                </div>
+                <div class="stat">
+                    <b class="label">SPD</b>
+                    <div class="value" id="spd"></div>
+                </div>
+            </div>
+        </div>
+        <div id="bio">
+
+        </div>
+    </section>
+
+</body>
+
+
+
+<datalist id="pokemon-names">
+</datalist>
+
+</html>
