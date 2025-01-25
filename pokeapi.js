@@ -1,10 +1,12 @@
 class pokeapi {
     static url = 'https://pokeapi.co/api/v2/';
-    static async berry(name = '') { return await this.request(this.url + 'berry/' + name); };
-    static async item(name = '') { return await this.request(this.url + 'item/' + name); };
-    static async move(name = '') { return await this.request(this.url + 'move/' + name); };
-    static async pokemon(name = '') { return await this.request(this.url + 'pokemon/' + name); };
-    static async species(name = '') { return await this.request(this.url + 'pokemon-species/' + name); };
+    static async berry(name = '') { return await this.request(this.url + 'berry/' + name) };
+    static async item(name = '') { return await this.request(this.url + 'item/' + name) };
+    static async move(name = '') { return await this.request(this.url + 'move/' + name) };
+    static async pokemon(name = '') { return await this.request(this.url + 'pokemon/' + name) };
+    static async species(name = '') { return await this.request(this.url + 'pokemon-species/' + name) };
+    static async egg(name = '') { return await this.request(this.url + 'egg-group/' + name) };
+    static async evoloution(name = '') { return await this.request(this.url + 'evolution-chain/' + name) };
 
     static async request(url) {
         try {
@@ -25,25 +27,45 @@ class pokeapi {
     }
 
     // converts API data into VTT usable json data
-    static async _pokemonToVtt(data) {
+    static async _pokemonToVtt(poke) {
+        const { data, species, evolution } = poke
         const pokemon = {
             name: data.name,
             weight: data.weight,
             height: data.height,
             dexID: data.id,
             types: [],
+            evolution: []
         };
         pokemon.stats = {
-            hp: Math.round(data.stats[0].base_stat / 10) * 6,
-            atk: Math.round(data.stats[1].base_stat / 10),
-            def: Math.round(data.stats[2].base_stat / 10),
-            satk: Math.round(data.stats[3].base_stat / 10),
-            sdef: Math.round(data.stats[4].base_stat / 10),
-            spd: Math.round(data.stats[5].base_stat / 10)
+            hp: { base: Math.round(data.stats[0].base_stat / 10) * 6 },
+            atk: { base: Math.round(data.stats[1].base_stat / 10) },
+            def: { base: Math.round(data.stats[2].base_stat / 10) },
+            satk: { base: Math.round(data.stats[3].base_stat / 10) },
+            sdef: { base: Math.round(data.stats[4].base_stat / 10) },
+            spd: { base: Math.round(data.stats[5].base_stat / 10) }
         };
         for (const a of data.types) pokemon.types.push(a.type.name);
+
+        //adds list of pokemon evoloution options, in order
+
+        let chain = evolution.chain;
+
+        const getChain = (evo) => {
+            pokemon.evolution.push(evo.species);
+            for (const e of evo.evolves_to) {
+                getChain(e);
+            }
+        }
+        getChain(chain);
+
         return pokemon;
     }
+}
+
+function titleCase(string) {
+    if (!string) return '';
+    return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
 window.addEventListener('load', async (event) => {
@@ -69,10 +91,10 @@ window.addEventListener('load', async (event) => {
     const searchbox = document.getElementById('search-name');
     searchbox.addEventListener('input', (event) => {
         dataset = document.getElementById('pokemon-names');
-        const query = searchbox.value;
+        const query = searchbox.value.toLowerCase();
         const matches = [];
 
-        if (query.length < 3) return;
+        if (query.length < 2) return;
         let dist = Math.floor(pokedex.names.length - 1) / 2;
         let index = dist;
         let done = false;
@@ -136,36 +158,42 @@ window.addEventListener('load', async (event) => {
     let btnSearch = document.querySelector('#search');
     btnSearch.disabled = false;
     btnSearch.addEventListener('click', async (event) => {
-        let name = searchbox.value;
+        let name = searchbox.value.toLowerCase();
         if (name != '') {
             let pokemon = {};
 
             pokemon.data = await pokeapi.pokemon(name);
             pokemon.species = await pokeapi.species(name);
-            pokemon.vtt = await pokeapi._pokemonToVtt(pokemon.data);
+            pokemon.evolution = await pokeapi.request(pokemon.species.evolution_chain.url);
+            pokemon.vtt = await pokeapi._pokemonToVtt(pokemon);
 
             searchbox.value = '';
-            
+
             // Names
-            let label = document.getElementById('name');
-            label.textContent = pokemon.vtt.name;
+            document.getElementById('name').textContent = titleCase(pokemon.vtt.name);
 
             // Portrait
-            let img = document.getElementById('portrait');
-            img.src = pokemon.data.sprites.front_default;
+            document.getElementById('portrait').src = pokemon.data.sprites.front_default;
 
             //stats
             let stats = document.getElementById('stats');
             for (const stat of stats.querySelectorAll('[id]')) {
-                stat.textContent = pokemon.vtt.stats[stat.id];
+                stat.textContent = pokemon.vtt.stats[stat.id].base;
             }
 
-            // Pokemon types
-            let typeOne = document.getElementById('type-1');
-            typeOne.textContent = pokemon.vtt.types[0];
+            //height and weight
+            document.getElementById('height').textContent = `${pokemon.vtt.height / 10}m`
+            document.getElementById('weight').textContent = `${pokemon.vtt.weight / 10}kg`
 
-            let typeTwo = document.getElementById('type-2');
-            typeTwo.textContent = pokemon.vtt.types[1];
+            // Pokemon types
+            document.getElementById('type-1').textContent = titleCase(pokemon.vtt.types[0]);
+            document.getElementById('type-2').textContent = titleCase(pokemon.vtt.types[1]);
+
+            // Egg groupings
+            document.getElementById('egg-types').textContent = '';
+            for (const egg of pokemon.species.egg_groups) {
+                document.getElementById('egg-types').textContent += titleCase(egg.name + ' ');
+            }
 
             // Bio descriptions and flavour text
             let bio = document.getElementById('bio');
@@ -174,10 +202,10 @@ window.addEventListener('load', async (event) => {
                 if (i.language.name == 'en') {
                     let e = document.createElement('div');
                     e.style.marginBottom = '8px';
-                    e.style.maxWidth = '800px';
+                    e.style.maxWidth = '600px';
 
                     let ver = document.createElement('b');
-                    ver.textContent = i.version.name;
+                    ver.textContent = titleCase(i.version.name);
 
                     let flavor = document.createElement('div');
                     flavor.textContent = i.flavor_text;
@@ -189,6 +217,13 @@ window.addEventListener('load', async (event) => {
             }
 
             console.log(pokemon);
+            document.getElementById('pokemon-data').classList.remove('no-display');
         }
-    })
+    });
+
+    /**********************************************************************************/
+    /*                                                                                */
+    /*                             POKEMON DATA TABS                                  */
+    /*                                                                                */
+    /**********************************************************************************/
 }) 

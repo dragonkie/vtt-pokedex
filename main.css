@@ -1,3 +1,9 @@
+body {
+    font-family: 'DM Sans', serif;
+    font-optical-sizing: auto;
+    font-size: 18px;
+}
+
 .flexrow {
     display: flex;
     flex-direction: row;
@@ -16,22 +22,47 @@
     flex: 1;
 }
 
+.no-display {
+    display: none;
+}
+
+#stats {
+    flex: 0 0;
+    width: 225px;
+}
+
+#stats > * {
+    margin: 0 15px 0 0;
+}
+
+#details {
+    flex: 0;
+}
+
+#details > * {
+    margin: 0 0 8px 0;
+}
+
+#types > * {
+    margin: 0 5px 0 0;
+}
+
 .stat {
-    margin: 4px 0px;
-    width: 80px;
+    justify-content: left;
     display: flex;
     flex-direction: row;
+    flex: 0;
+    text-align: left;
 }
 
 .stat .label {
-    flex: 2;
     text-align: left;
+    flex: 2;
 }
 
 .stat .value {
-    text-align: left;
-    flex: 0;
-    min-width: 18px;
+    text-align: right;
+    flex: 1;
 }
 
 #portrait {
