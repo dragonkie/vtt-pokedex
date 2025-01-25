@@ -14,13 +14,13 @@
 
 <body style="padding: 15px;">
     <!-- Search index -->
-    <div id="search-filters" style="margin: 0 0 20px 0;">
+    <form id="search-filters" style="margin: 0 0 20px 0;">
         <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
         <input id="search" type="button" value="search" disabled>
-    </div>
+    </form>
     <section id="pokemon-data" class="no-display">
         <div class="flexrow">
-            <img id="portrait" src="none" width="200" height="200">
+            <img id="portrait" width="200" height="200">
             <div id="details">
                 <div style="margin-bottom: 2px;"><b id="name" style="flex: 0; font-size: 1.5em;"></b></div>
                 <div id="types" style="flex: 0;">
@@ -79,13 +79,20 @@
             </div>
         </div>
         <div id="navigation">
+            <a class="tab-select" data-tab="bio">Description</a>
+            <a class="tab-select" data-tab="moves">Moves</a>
+            <a class="tab-select" data-tab="evolution">Evoloutions</a>
         </div>
-        <div id="tab-content">
-            <div id="bio" class="tab">
-
+        <div id="content">
+            <div class="tab active" id="bio">
+            </div>
+            <div class="tab" id="moves">
+            </div>
+            <div class="tab" id="evolution">
             </div>
         </div>
-        
+
+
     </section>
 
 </body>

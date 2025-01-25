@@ -6,7 +6,7 @@ class pokeapi {
     static async pokemon(name = '') { return await this.request(this.url + 'pokemon/' + name) };
     static async species(name = '') { return await this.request(this.url + 'pokemon-species/' + name) };
     static async egg(name = '') { return await this.request(this.url + 'egg-group/' + name) };
-    static async evoloution(name = '') { return await this.request(this.url + 'evolution-chain/' + name) };
+    static async evolution(name = '') { return await this.request(this.url + 'evolution-chain/' + name) };
 
     static async request(url) {
         try {
@@ -35,7 +35,8 @@ class pokeapi {
             height: data.height,
             dexID: data.id,
             types: [],
-            evolution: []
+            evolution: {},
+            moves: [],
         };
         pokemon.stats = {
             hp: { base: Math.round(data.stats[0].base_stat / 10) * 6 },
@@ -48,18 +49,198 @@ class pokeapi {
         for (const a of data.types) pokemon.types.push(a.type.name);
 
         //adds list of pokemon evoloution options, in order
+        pokemon.evolution.chain = [];
+        pokemon.evolution.id = evolution.id;
+        pokemon.evolution.next = species
+        pokemon.evolution.previous = species.evolves_from_species;
 
-        let chain = evolution.chain;
+        // evolution_details repersents how a previous pokemon evolved *into* this one
+        // evolves_to repersents possible options this pokemon can becom
 
-        const getChain = (evo) => {
-            pokemon.evolution.push(evo.species);
-            for (const e of evo.evolves_to) {
-                getChain(e);
+        const parseChain = (chain) => {
+            // Each evolution entry in the chain should have details used to help order itself
+            let data = {
+                from: [],//list of ways this pokemon came into existance
+                details: undefined,
+            }
+
+            if (chain.evolution_details.length > 0) data.details = chain.evolution_details[0];
+            if (chain.evolution_details.length > 1) console.error('Fuck there are multi method evos');
+
+            // get details for future evolutions
+            for (var i = 0; i < chain.evolves_to.length; i++) {
+                pokemon.evolution.chain.push({
+                    name: chain.species.name,
+                    evolves_to: {
+                        name: chain.evolves_to[i].species,
+                    },
+                });
+                // if there is a further evoloution, parses it in
+                if (chain.evolves_to[i]) parseChain(chain.evolves_to[i]);
             }
         }
-        getChain(chain);
+
+        parseChain(evolution.chain);
+
+        // Add pokemons level up available moves
+        for (const i of data.moves) {
+            for (const d of i.version_group_details) {
+                if (d.move_learn_method.name != 'machine') {
+                    let skip = false;
+                    for (const f of pokemon.moves) if (f.name == i.move.name) skip = true;
+                    if (skip) continue;
+                    pokemon.moves.push({
+                        name: i.move.name,
+                        level: d.level_learned_at,
+                        method: d.move_learn_method.name
+                    })
+                }
+            }
+        }
+
+        pokemon.moves.sort((a, b) => {
+            return a.level - b.level;
+        })
+
+        // converts list of moves into PTA3 stat passives where possible
+        // Make sure to filter out unavailable options before calculation
+        let m = [];
+        for (const n of pokemon.moves) if (n.method == 'level-up') m.push(n.name);
+        let statBonus = this.movePassive(m);
+        console.log(m);
+        console.log(statBonus);
 
         return pokemon;
+    }
+
+    /**
+     * converts a move based off of name into their respective stat changes
+     * @param {string} move 
+     * @returns {Object} an object with matching keys to default pokemon stats to be added
+     */
+    static movePassive(moves) {
+        // santize the input to make sure it adheres to pokeapi formating
+        if (!Array.isArray(moves)) moves = [moves];
+
+        const stats = {
+            atk: 0,
+            def: 0,
+            hp: 0,
+            satk: 0,
+            sdef: 0,
+            spd: 0,
+        }
+
+        for (let move of moves) {
+            move = move.toLowerCase().replaceAll(" ", "-");
+            switch (move) {
+                // Attack
+                case 'gorilla-tactics':
+                case 'howl':
+                case 'leer':
+                case 'meditate':
+                case 'moxie':
+                case 'sharpen':
+                case 'tail-whip':
+                    stats.atk += 1;
+                    break;
+                case 'hone-claws':
+                case 'screech':
+                case 'swords-dance':
+                    stats.atk += 2;
+                    break;
+                case 'huge-power':
+                case 'pure-power':
+                    stats.atk += 6;
+                    break;
+
+                // Special Attack
+                case 'metal-sound':
+                case 'nasty-plot':
+                    stats.satk += 1;
+                    break;
+                case 'fake-tears':
+                    stats.satk += 2;
+                    break;
+                case 'tail-glow':
+                    stats.satk += 3;
+                    break;
+
+                // Defence
+                case 'baby-doll-eyes':
+                case 'charm':
+                case 'defense-curl':
+                case 'growl':
+                case 'harden':
+                case 'intimidate':
+                case 'play-nice':
+                case 'withdraw':
+                    stats.def += 1;
+                    break;
+                case 'acid-armor':
+                case 'barrier':
+                case 'feather-dance':
+                case 'iron-defense':
+                case 'stamina':
+                    stats.def += 2;
+                    break;
+                case 'cotton-guard':
+                case 'shelter':
+                    stats.def += 3;
+                    break;
+
+                // Special Defence
+                case 'confide':
+                    stats.sdef += 1;
+                    break;
+                case 'amnesia':
+                case 'captivate':
+                case 'eerie-impulse':
+                    stats.sdef += 2;
+                    break;
+
+                // Mixed stat gains
+                case 'bulk-up':
+                case 'tickle':
+                    stats.atk += 1;
+                    stats.def += 1;
+                    break;
+                case 'growth':
+                case 'rototiller':
+                case 'work-up':
+                    stats.atk += 1;
+                    stats.satk += 1;
+                    break;
+                case 'calm-mind':
+                    stats.satk += 1;
+                    stats.sdef += 1;
+                    break;
+                case 'coil':
+                    stats.atk += 2;
+                    stats.def += 1;
+                    break;
+                case 'cosmic-power':
+                case 'tearful-look':
+                    stats.def += 1;
+                    stats.sdef += 1;
+                    break;
+                case 'dragon-dance':
+                    stats.atk += 1;
+                    stats.spd += 1;
+                    break;
+                case 'quiver-dance':
+                    stats.spd += 1;
+                    stats.satk += 1;
+                    stats.sdef += 1;
+                    break;
+                case 'shift-gear':
+                    stats.atk += 1;
+                    stats.spd += 2;
+                    break;
+            }
+        }
+
+        return stats;
     }
 }
 
@@ -226,4 +407,14 @@ window.addEventListener('load', async (event) => {
     /*                             POKEMON DATA TABS                                  */
     /*                                                                                */
     /**********************************************************************************/
+    let nav = document.querySelectorAll('#navigation .tab-select');
+    let tabs = document.querySelectorAll('#content .tab');
+    for (const t of nav) {
+        t.addEventListener('click', (event) => {
+            for (const i of nav) i.classList.remove('active');
+            for (const i of tabs) i.classList.remove('active');
+            document.querySelector(`#${event.target.dataset.tab}`).classList.add('active');
+            event.target.classList.add('active');
+        })
+    }
 }) 

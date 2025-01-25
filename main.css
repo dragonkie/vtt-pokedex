@@ -2,6 +2,8 @@ body {
     font-family: 'DM Sans', serif;
     font-optical-sizing: auto;
     font-size: 18px;
+
+    --c-gray1: #393e46;
 }
 
 .flexrow {
@@ -70,4 +72,43 @@ body {
     margin: 0 5px 0 0;
     flex: 0 0;
     image-rendering: pixelated;
+}
+
+.tab-select {
+    transition: color 0.25s;
+    margin-right: 15px;
+}
+
+.tab-select:hover {
+    cursor: pointer;
+    color: hotpink;
+}
+
+.tab-select.active {
+    color: hotpink;
+}
+
+.no-display .active {
+    display: none;
+}
+
+.tab {
+    display: none;
+}
+
+.tab.active {
+    display: block;
+}
+
+#navigation {
+    background-color: var(--c-gray1);
+    border-bottom: solid 3px rgb(255, 63, 63);
+    color: white;
+    padding: 5px 15px;
+}
+
+#content {
+    padding: 5px;
+    background-color: rgb(100, 100, 100);
+    border: solid 10px rgb(75, 75, 75) ;
 }
