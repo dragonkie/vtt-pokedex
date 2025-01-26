@@ -9,20 +9,30 @@
 <html lang="en">
 
 <head>
-    Pokeapi dex tester
+    Pokedex FVTT
 </head>
 
 <body style="padding: 15px;">
     <!-- Search index -->
-    <form id="search-filters" style="margin: 0 0 20px 0;">
+
+    <form id="search-filters" style="margin: 0 0 15px 0;">
         <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
         <input id="search" type="button" value="search" disabled>
     </form>
-    <section id="pokemon-data" class="no-display">
-        <div class="flexrow">
-            <img id="portrait" width="200" height="200">
+    <section id="pokemon-data">
+        <div class="flexrow" id="card">
+            <div id="display">
+                <img id="portrait" width="200" height="200">
+                <div class="loading">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
             <div id="details">
-                <div style="margin-bottom: 2px;"><b id="name" style="flex: 0; font-size: 1.5em;"></b></div>
+                <b id="name">N/A</b>
                 <div id="types" style="flex: 0;">
                     <span id="type-1"></span>
                     <span id="type-2"></span>
@@ -31,56 +41,53 @@
                     <div class="flexcol">
                         <div class="stat">
                             <b class="label">HP</b>
-                            <div class="value" id="hp"></div>
+                            <div class="value" id="hp">?</div>
                         </div>
                         <div class="stat">
                             <b class="label">SPD</b>
-                            <div class="value" id="spd"></div>
+                            <div class="value" id="spd">?</div>
                         </div>
                     </div>
                     <div class="flexcol">
                         <div class="stat">
                             <b class="label">ATK</b>
-                            <div class="value" id="atk"></div>
+                            <div class="value" id="atk">?</div>
                         </div>
                         <div class="stat">
                             <b class="label">SATK</b>
-                            <div class="value" id="satk"></div>
+                            <div class="value" id="satk">?</div>
                         </div>
                     </div>
                     <div class="flexcol">
                         <div class="stat">
                             <b class="label">DEF</b>
-                            <div class="value" id="def"></div>
+                            <div class="value" id="def">?</div>
                         </div>
                         <div class="stat">
                             <b class="label">SDEF</b>
-                            <div class="value" id="sdef"></div>
+                            <div class="value" id="sdef">?</div>
                         </div>
                     </div>
                 </div>
                 <div id="size" class="flexrow">
                     <div>
                         <b style="display: inline;">Height:</b>
-                        <div id="height" style="display: inline;"></div>
+                        <div id="height" style="display: inline;">?</div>
                     </div>
                     <div>
                         <b style="display: inline;">Weight:</b>
-                        <div id="weight" style="display: inline;"></div>
+                        <div id="weight" style="display: inline;">?</div>
                     </div>
                 </div>
                 <div id="egg-groups">
                     <b style="display: inline;">Egg Groups:</b>
-                    <div id="egg-types" style="display: inline;">
-
-                    </div>
-
+                    <div id="egg-types" style="display: inline;">?</div>
                 </div>
             </div>
         </div>
         <div id="navigation">
             <a class="tab-select" data-tab="bio">Description</a>
-            <a class="tab-select" data-tab="moves">Moves</a>
+            <a class="tab-select active" data-tab="moves">Moves</a>
             <a class="tab-select" data-tab="evolution">Evoloutions</a>
         </div>
         <div id="content">

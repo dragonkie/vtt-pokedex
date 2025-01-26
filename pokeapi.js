@@ -85,16 +85,17 @@ class pokeapi {
         // Add pokemons level up available moves
         for (const i of data.moves) {
             for (const d of i.version_group_details) {
-                if (d.move_learn_method.name != 'machine') {
-                    let skip = false;
-                    for (const f of pokemon.moves) if (f.name == i.move.name) skip = true;
-                    if (skip) continue;
-                    pokemon.moves.push({
-                        name: i.move.name,
-                        level: d.level_learned_at,
-                        method: d.move_learn_method.name
-                    })
-                }
+                if (d.move_learn_method.name == 'machine') continue;
+                let skip = false;
+                for (const f of pokemon.moves) if (f.name == i.move.name) skip = true;
+                if (skip) continue;
+                pokemon.moves.push({
+                    name: i.move.name,
+                    level: d.level_learned_at,
+                    method: d.move_learn_method.name,
+                    data: await pokeapi.request(i.move.url),
+                })
+
             }
         }
 
@@ -396,6 +397,8 @@ window.addEventListener('load', async (event) => {
                     bio.appendChild(e);
                 }
             }
+
+            // Move sets
 
             console.log(pokemon);
             document.getElementById('pokemon-data').classList.remove('no-display');

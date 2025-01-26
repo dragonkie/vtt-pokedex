@@ -2,8 +2,11 @@ body {
     font-family: 'DM Sans', serif;
     font-optical-sizing: auto;
     font-size: 18px;
+    color: white;
 
     --c-gray1: #393e46;
+    --c-red1: #ff3f3f;
+    --c-blue1: #00a4d6;
 }
 
 .flexrow {
@@ -14,6 +17,47 @@ body {
 .flexcol {
     display: flex;
     flex-direction: column;
+}
+
+@keyframes loading-dot {
+    0% {
+        opacity: 0%;
+    }
+
+    25% {
+        opacity: 0%;
+    }
+
+    50% {
+        opacity: 100%;
+    }
+
+    75% {
+        opacity: 0%;
+    }
+}
+
+.loading {
+    animation: alternate;
+    animation-duration: 3s;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.loading .dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    animation-name: loading-dot;
+}
+
+#name {
+    font-size: 26px;
 }
 
 .flexcol>* {
@@ -28,24 +72,34 @@ body {
     display: none;
 }
 
-#stats {
-    flex: 0 0;
-    width: 225px;
+#display {
+    flex: 0;
 }
 
-#stats > * {
+#stats {
+    flex: 0 0;
+    width: 250px;
+}
+
+#stats>* {
     margin: 0 15px 0 0;
+}
+
+#card {
+    border: 15px solid var(--c-red1);
+    background-color: var(--c-gray1);
+    padding: 10px;
 }
 
 #details {
     flex: 0;
 }
 
-#details > * {
+#details>* {
     margin: 0 0 8px 0;
 }
 
-#types > * {
+#types>* {
     margin: 0 5px 0 0;
 }
 
@@ -67,11 +121,32 @@ body {
     flex: 1;
 }
 
+@keyframes grid-pan {
+    0% {
+        background-position: 0px 0px;
+    }
+
+    100% {
+        background-position: var(--grid-scale) var(--grid-scale);
+    }
+}
+
 #portrait {
+    --grid-scale: 40px;
     border: 1px solid black;
     margin: 0 5px 0 0;
     flex: 0 0;
     image-rendering: pixelated;
+    background-color: var(--c-blue1);
+    background-size: var(--grid-scale) var(--grid-scale);
+    background-image:
+        linear-gradient(to right, white 1px, transparent 1px),
+        linear-gradient(to bottom, white 1px, transparent 1px);
+    animation-name: grid-pan;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
 }
 
 .tab-select {
@@ -110,5 +185,5 @@ body {
 #content {
     padding: 5px;
     background-color: rgb(100, 100, 100);
-    border: solid 10px rgb(75, 75, 75) ;
+    border: solid 10px rgb(75, 75, 75);
 }
