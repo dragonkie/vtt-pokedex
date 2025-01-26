@@ -3,8 +3,12 @@ body {
     font-optical-sizing: auto;
     font-size: 18px;
     color: white;
+    width: 100%;
+    height: 100%;
 
     --c-gray1: #393e46;
+    --c-gray2: #535860;
+    --c-gray3: #b9bac4;
     --c-red1: #ff3f3f;
     --c-blue1: #00a4d6;
 }
@@ -19,6 +23,26 @@ body {
     flex-direction: column;
 }
 
+@media (width >=850px) {
+    #pokedex {
+        max-width: 850px
+    }
+}
+
+@media (width <=850px) {
+    #pokedex {
+        width: 100%
+    }
+}
+
+#pokedex {
+    min-height: 400px;
+    max-height: 850px;
+    height: 100%;
+    border: 15px solid var(--c-red1);
+    margin: auto;
+}
+
 @keyframes loading-dot {
     0% {
         opacity: 0%;
@@ -26,34 +50,44 @@ body {
 
     25% {
         opacity: 0%;
+        transform: translate(0, -115%);
     }
 
     50% {
         opacity: 100%;
+        transform: translate(0, -165%);
     }
 
     75% {
+        opacity: 0%;
+        transform: translate(0, -115%);
+    }
+
+    100% {
         opacity: 0%;
     }
 }
 
 .loading {
-    animation: alternate;
+    animation-iteration-count: infinite;
     animation-duration: 3s;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -100%);
+    animation-name: loading-dot;
+    position: relative;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 60%;
+    height: 25px;
+    transform: translate(0px, -115%);
 }
 
 .loading .dot {
-    height: 25px;
-    width: 25px;
+    margin: auto;
+    height: 15px;
+    width: 15px;
     border-radius: 100%;
-    animation-name: loading-dot;
+    display: inline-block;
+    transform: translate(0%, 0%);
+    background-color: var(--c-gray2);
 }
 
 #name {
@@ -74,6 +108,10 @@ body {
 
 #display {
     flex: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #stats {
@@ -86,7 +124,7 @@ body {
 }
 
 #card {
-    border: 15px solid var(--c-red1);
+    border-bottom: 15px solid var(--c-red1);
     background-color: var(--c-gray1);
     padding: 10px;
 }
@@ -133,7 +171,7 @@ body {
 
 #portrait {
     --grid-scale: 40px;
-    border: 1px solid black;
+    border: 1px solid white;
     margin: 0 5px 0 0;
     flex: 0 0;
     image-rendering: pixelated;
@@ -156,11 +194,11 @@ body {
 
 .tab-select:hover {
     cursor: pointer;
-    color: hotpink;
+    color: var(--c-blue1);
 }
 
 .tab-select.active {
-    color: hotpink;
+    color: var(--c-blue1);
 }
 
 .no-display .active {
@@ -173,6 +211,7 @@ body {
 
 .tab.active {
     display: block;
+    overflow: auto;
 }
 
 #navigation {
@@ -184,6 +223,12 @@ body {
 
 #content {
     padding: 5px;
-    background-color: rgb(100, 100, 100);
-    border: solid 10px rgb(75, 75, 75);
+    background-color: var(--c-gray2);
+    border: solid 10px var(--c-gray1);
+    overflow: auto;
+    height: 50vh;
+}
+
+.data-block {
+    margin: 0 0 10px 0;
 }

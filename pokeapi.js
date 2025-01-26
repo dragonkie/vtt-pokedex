@@ -383,8 +383,7 @@ window.addEventListener('load', async (event) => {
             for (const i of pokemon.species.flavor_text_entries) {
                 if (i.language.name == 'en') {
                     let e = document.createElement('div');
-                    e.style.marginBottom = '8px';
-                    e.style.maxWidth = '600px';
+                    e.classList.add('data-block');
 
                     let ver = document.createElement('b');
                     ver.textContent = titleCase(i.version.name);
@@ -398,10 +397,35 @@ window.addEventListener('load', async (event) => {
                 }
             }
 
-            // Move sets
+            // Move sets to move tab
+            let moves = document.getElementById('moves');
+            moves.replaceChildren();
+
+            for (const move of pokemon.vtt.moves) {
+                let w = document.createElement('div');
+                w.classList.add('data-block');
+
+                let n = document.createElement('b');
+                n.textContent = move.name;
+                for (const i of move.data.names) {
+                    if (i.language.name != 'en') continue;
+                    n.textContent = i.name;
+                    break;
+                }
+
+                let f = document.createElement('div');
+                for (const i of move.data.flavor_text_entries) {
+                    if (i.language.name != 'en') continue;
+                    f.textContent = i.flavor_text;
+                    break;
+                }
+
+                moves.appendChild(w);
+                w.appendChild(n);
+                w.appendChild(f);
+            }
 
             console.log(pokemon);
-            document.getElementById('pokemon-data').classList.remove('no-display');
         }
     });
 
