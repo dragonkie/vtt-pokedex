@@ -342,20 +342,23 @@ window.addEventListener('load', async (event) => {
     btnSearch.addEventListener('click', async (event) => {
         let name = searchbox.value.toLowerCase();
         if (name != '') {
-            let pokemon = {};
+            // Reveal the loading dots
+            document.querySelector('.loading').classList.remove('hide-display');
+            document.getElementById('portrait').classList.add('hide-display');
 
+            // Load in data
+            let pokemon = {};
             pokemon.data = await pokeapi.pokemon(name);
             pokemon.species = await pokeapi.species(name);
             pokemon.evolution = await pokeapi.request(pokemon.species.evolution_chain.url);
             pokemon.vtt = await pokeapi._pokemonToVtt(pokemon);
-
-            searchbox.value = '';
 
             // Names
             document.getElementById('name').textContent = titleCase(pokemon.vtt.name);
 
             // Portrait
             document.getElementById('portrait').src = pokemon.data.sprites.front_default;
+            document.getElementById('portrait').classList.remove('hide-display');
 
             //stats
             let stats = document.getElementById('stats');
@@ -426,6 +429,7 @@ window.addEventListener('load', async (event) => {
             }
 
             console.log(pokemon);
+            document.querySelector('.loading').classList.add('hide-display');
         }
     });
 
@@ -443,5 +447,25 @@ window.addEventListener('load', async (event) => {
             document.querySelector(`#${event.target.dataset.tab}`).classList.add('active');
             event.target.classList.add('active');
         })
+    }
+
+    /**********************************************************************************/
+    /*                                                                                */
+    /*                          LOADING SCREEN DOT DELAY                              */
+    /*                                                                                */
+    /**********************************************************************************/
+    let delay = 0;
+    let dots = document.querySelectorAll('.loading .dot');
+
+    for (let i = 0; i < dots.length; i += 1) {
+        let dot = dots[i];
+
+        function triggerAnimation() {
+            console.log('triggered');
+            this.classList.remove('paused');
+        }
+
+        window.setTimeout(triggerAnimation.bind(dot), delay);
+        delay += 250;
     }
 }) 
