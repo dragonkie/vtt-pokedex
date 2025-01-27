@@ -27,18 +27,16 @@ body {
   display: flex;
   flex-direction: column;
 }
+.flexcol > * {
+  flex: 1;
+}
 
-.flexcol > *,
 .flexrow > * {
   flex: 1;
 }
 
 .no-display {
   display: none !important;
-}
-
-.hide-display {
-  opacity: 0%;
 }
 
 /**********************************************************************************/
@@ -50,46 +48,13 @@ body {
   box-sizing: border-box;
   min-height: 400px;
   max-height: 850px;
-  height: 100%;
+  height: 100vh;
   border: 15px solid var(--c-red1);
   margin: auto;
 }
 
 #name {
   font-size: 26px;
-}
-
-#display {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin-right: 10px;
-}
-
-#stats {
-  flex: 1 0;
-}
-#stats > * {
-  margin: auto;
-}
-#stats .stat {
-  justify-content: left;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  text-align: left;
-}
-#stats .value {
-  flex: 1;
-  text-align: left;
-  margin-right:1em;
-}
-#stats .label {
-  text-align: left;
-  margin-right:1em;
 }
 
 #card {
@@ -99,14 +64,26 @@ body {
   border-bottom: 15px solid var(--c-red1);
   background-color: var(--c-gray1);
   padding: 10px;
+  gap: 10px;
 }
 
-#details {
+#display {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
-#details > * {
-  margin: 0 0 5px 0;
-  flex: 1;
+
+#stats .stat {
+  text-align: left;
+}
+#stats .stat > * {
+  display: inline;
+}
+#stats .value {
+  text-align: center;
 }
 
 #types > * {
@@ -118,13 +95,12 @@ body {
   image-rendering: pixelated;
   width: 100%;
   margin: auto;
-  opacity:0;
+  opacity: 0;
 }
-
-#portrait[src]{
-  animation: idle-bounce 3s infinite ease-in-out; 
+#portrait[src] {
+  animation: idle-bounce 3s infinite ease-in-out;
   animation-direction: alternate;
-  opacity: 1;;
+  opacity: 1;
 }
 
 .grid-background {
@@ -137,10 +113,10 @@ body {
   background-size: var(--grid-scale) var(--grid-scale);
   background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
   animation-name: grid-pan;
-  animation-duration: 12s;
+  animation-duration: 30s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  padding:16px;
+  padding: 16px;
   display: flex;
   justify-content: center;
   min-width: 200px;
@@ -183,7 +159,7 @@ body {
   background-color: var(--c-gray2);
   border: solid 10px var(--c-gray1);
   overflow: auto;
-  height: 50vh;
+  height: 100%;
 }
 
 .data-block {
@@ -193,8 +169,6 @@ body {
 .loading {
   width: 100%;
   height: 100%;
-}
-.loading .ring-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -202,98 +176,40 @@ body {
   width: 100%;
   height: 100%;
   --border-scale: 15px;
+  --anim-time: 3.5s;
+  --anim-offset: 0.5s;
 }
-@media screen and (max-width: 600px) {
-  .loading .ring-box {
-    --border-scale: 10px ;
-  }
-}
-@media screen and (max-width: 300px) {
-  .loading .ring-box {
-    --border-scale: 5px ;
-  }
-}
-.loading .ring-box .outer-ring {
+.loading .ring {
   position: absolute;
   border: var(--border-scale) solid transparent;
   border-top-color: red;
+  border-bottom-color: red;
   border-radius: 50%;
   margin: auto;
   width: 60%;
   height: 60%;
-  animation: spin 2.5s linear infinite, shrink 2.5s linear;
+  animation: spin var(--anim-time) linear infinite;
 }
-.loading .ring-box .center-ring {
-  position: absolute;
-  border: var(--border-scale) solid transparent;
+.loading .ring.outer {
+  border-top-color: red;
+  border-bottom-color: red;
+  width: 60%;
+  height: 60%;
+}
+.loading .ring.center {
   border-top-color: black;
-  border-radius: 50%;
+  border-bottom-color: black;
   width: 40%;
   height: 40%;
-  animation: spin 2s linear infinite reverse, shrink 2s linear;
+  animation-duration: calc(var(--anim-time) - var(--anim-offset));
+  animation-direction: reverse;
 }
-.loading .ring-box .inner-ring {
-  position: absolute;
-  border: var(--border-scale) solid transparent;
+.loading .ring.inner {
   border-top-color: white;
-  border-radius: 50%;
+  border-bottom-color: white;
   width: 20%;
   height: 20%;
-  animation: spin 1.5s linear infinite, shrink 1.5s linear;
-}
-
-/**********************************************************************************/
-/*                                                                                */
-/*                         MOBILE STYLING                                         */
-/*                                                                                */
-/**********************************************************************************/
-.mobile {
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-  height: 100vh;
-}
-.mobile #pokedex {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  border-width: 10px;
-}
-.mobile #card {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 33% 67%;
-  grid-template-areas: "s s" "i d";
-  flex-direction: row;
-  border-bottom-width: 10px;
-}
-.mobile #portrait {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1/1;
-}
-.mobile #search {
-  grid-area: s;
-}
-.mobile #display {
-  grid-area: i;
-  margin: 0;
-}
-.mobile #details {
-  grid-area: d;
-  display: flex;
-  flex-direction: column;
-}
-.mobile #details > * {
-  margin: 0;
-}
-.mobile #stats {
-  flex: 1;
-}
-.mobile #content {
-  height: 100%;
+  animation-duration: calc(var(--anim-time) - var(--anim-offset) * 2);
 }
 
 /**********************************************************************************/
@@ -311,12 +227,11 @@ body {
     width: 100%;
   }
 }
-@container display (max-width: 150) {
-  .mobile .loading {
-    opacity: 0%;
+@media (prefers-reduced-motion) {
+  .loading {
+    --anim-time: 7s;
   }
 }
-
 /**********************************************************************************/
 /*                                                                                */
 /*                          ANIMATIONS + KEYFRAMES                                */
@@ -336,21 +251,21 @@ body {
 }
 @keyframes grid-pan {
   0% {
-    background-position: 0px 0px;
+    background-position: 0% 0%;
   }
   100% {
-    background-position: var(--grid-scale) var(--grid-scale);
+    background-position: 100% 100%;
   }
 }
-@keyframes idle-bounce{
-  0%{
-    transform:scaleY(1) skewY(-3deg);
+@keyframes idle-bounce {
+  0% {
+    transform: scaleY(1) skewY(-3deg);
   }
-  50%{
-    transform:scaleY(1.05) scaleX(1.075) skewY(0deg);
+  50% {
+    transform: scaleY(1.05) scaleX(1.075) skewY(0deg);
   }
-  100%{
-    transform:scaleY(1) skewY(3deg);
+  100% {
+    transform: scaleY(1) skewY(3deg);
   }
 }
 
