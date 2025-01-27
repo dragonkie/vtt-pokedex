@@ -70,11 +70,25 @@ body {
 }
 
 #stats {
-  flex: 0 0;
-  width: 250px;
+  flex: 1 0;
 }
 #stats > * {
-  margin: 0 15px 0 0;
+  margin: auto;
+}
+#stats .stat {
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  text-align: left;
+}
+#stats .value {
+  flex: 1;
+  text-align: left;
+}
+#stats .label {
+  text-align: left;
+  flex: 2;
 }
 
 #card {
@@ -97,22 +111,6 @@ body {
   margin: 0 5px 0 0;
 }
 
-.stat {
-  justify-content: left;
-  display: flex;
-  flex-direction: row;
-  flex: 0;
-  text-align: left;
-}
-.stat .label {
-  text-align: left;
-  flex: 2;
-}
-.stat .value {
-  text-align: right;
-  flex: 1;
-}
-
 #portrait {
   --grid-scale: 40px;
   flex: 0 0;
@@ -128,6 +126,8 @@ body {
 }
 
 .grid-background {
+  width: 100%;
+  aspect-ratio: 1/1;
   box-sizing: border-box;
   border: 1px solid white;
   --grid-scale: 40px;
@@ -138,7 +138,6 @@ body {
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  aspect-ratio: 1/1;
 }
 
 .tab-select {
@@ -217,6 +216,7 @@ body {
   padding: 0px;
   margin: 0px;
   height: 100vh;
+  font-size: 36px;
 }
 .mobile #pokedex {
   margin: 0;
@@ -228,12 +228,16 @@ body {
 .mobile #card {
   display: grid;
   gap: 0px;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 33% 67%;
   grid-template-areas: "s s" "i d";
   flex-direction: row;
 }
+.mobile #name {
+  font-size: 45px;
+}
 .mobile #portrait {
   width: 100%;
+  height: 100%;
   aspect-ratio: 1/1;
 }
 .mobile #search {
@@ -244,6 +248,11 @@ body {
 }
 .mobile #details {
   grid-area: d;
+  display: flex;
+  flex-direction: column;
+}
+.mobile #stats {
+  flex: 1;
 }
 .mobile #content {
   height: 100%;

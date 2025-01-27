@@ -250,7 +250,7 @@ function titleCase(string) {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
-function isMobile () {
+function isMobile() {
     return (window.matchMedia("(any-hover:none)").matches)
 };
 
@@ -260,9 +260,13 @@ function isMobile () {
 /*                                                                                */
 /**********************************************************************************/
 window.addEventListener('load', async (event) => {
-    if (isMobile()) {
-        document.querySelector('body').classList.add('mobile');
-    }
+
+    // Adds mobile styling if we detect someone on a device without a mouse
+    if (isMobile()) document.querySelector('body').classList.add('mobile');
+    window.addEventListener('resize', () => {
+        if (isMobile()) document.querySelector('body').classList.add('mobile');
+        else document.querySelector('body').classList.remove('mobile');
+    });
 
     const pokedex = {
         names: []
@@ -348,9 +352,9 @@ window.addEventListener('load', async (event) => {
     /*                          SEARCH BUTTON FUNCTIONALITY                           */
     /*                                                                                */
     /**********************************************************************************/
-    let btnSearch = document.querySelector('#search-submit');
-    btnSearch.disabled = false;
-    btnSearch.addEventListener('click', async (event) => {
+    async function proccessSearchForm(event) {
+        console.log('Search Pending...')
+        if (event.preventDefault) event.preventDefault();
         let name = searchbox.value.toLowerCase();
         if (name != '') {
             // Reveal the loading dots
@@ -441,8 +445,11 @@ window.addEventListener('load', async (event) => {
                 w.appendChild(n);
                 w.appendChild(f);
             }
+
         }
-    });
+    }
+    document.getElementById('search-form').addEventListener('submit', proccessSearchForm);
+    document.querySelector('#search-submit').disabled = false;
 
     /**********************************************************************************/
     /*                                                                                */
