@@ -250,6 +250,9 @@ function titleCase(string) {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
+function isMobile () {
+    return (window.matchMedia("(any-hover:none)").matches)
+};
 
 /**********************************************************************************/
 /*                                                                                */
@@ -257,7 +260,9 @@ function titleCase(string) {
 /*                                                                                */
 /**********************************************************************************/
 window.addEventListener('load', async (event) => {
-    console.log('Content loaded succesfuly');
+    if (isMobile()) {
+        document.querySelector('body').classList.add('mobile');
+    }
 
     const pokedex = {
         names: []

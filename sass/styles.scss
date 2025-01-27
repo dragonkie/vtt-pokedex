@@ -44,52 +44,17 @@ body {
 
 /**********************************************************************************/
 /*                                                                                */
-/*                          MEDIA QUERIES + MOBILE FORMAT                         */
+/*                         DESKTOP STYLING                                        */
 /*                                                                                */
 /**********************************************************************************/
+
 #pokedex {
+    box-sizing: border-box;
     min-height: 400px;
     max-height: 850px;
     height: 100%;
     border: 15px solid var(--c-red1);
     margin: auto;
-}
-
-@media screen and (min-width: 600px) {
-    #pokedex {
-        max-width: 850px;
-    }
-}
-
-@media sceen and (max-width: 600px) {
-    #pokedex {
-        width: 100%;
-    }
-}
-
-
-
-.loading {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    width: 60%;
-    height: 25px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    .dot {
-        animation-iteration-count: infinite;
-        animation-duration: 3s;
-        animation-name: loading-dot;
-        margin: auto;
-        height: 15px;
-        width: 15px;
-        border-radius: 100%;
-        display: inline-block;
-        background-color: var(--c-gray2);
-    }
 }
 
 #name {
@@ -116,6 +81,8 @@ body {
 }
 
 #card {
+    display: flex;
+    flex-direction: row;
     border-bottom: 15px solid var(--c-red1);
     background-color: var(--c-gray1);
     padding: 10px;
@@ -177,6 +144,7 @@ body {
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    aspect-ratio: 1 / 1;
 }
 
 .tab-select {
@@ -214,6 +182,7 @@ body {
 }
 
 #content {
+    box-sizing: border-box;
     padding: 5px;
     background-color: var(--c-gray2);
     border: solid 10px var(--c-gray1);
@@ -223,6 +192,100 @@ body {
 
 .data-block {
     margin: 0 0 10px 0;
+}
+
+.loading {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    height: 25px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .dot {
+        animation-iteration-count: infinite;
+        animation-duration: 3s;
+        animation-name: loading-dot;
+        margin: auto;
+        height: 15px;
+        width: 15px;
+        border-radius: 100%;
+        display: inline-block;
+        background-color: var(--c-gray2);
+    }
+}
+
+/**********************************************************************************/
+/*                                                                                */
+/*                         MOBILE STYLING                                         */
+/*                                                                                */
+/**********************************************************************************/
+
+.mobile {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+
+    #pokedex {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    #card {
+        display: grid;
+        gap: 0px;
+        grid-template-columns: 50% 50%;
+        grid-template-areas:
+            "s s"
+            "i d";
+        flex-direction: row;
+    }
+
+    #portrait {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+
+    #search {
+        grid-area: s;
+    }
+
+    #display {
+        grid-area: i;
+    }
+
+    #details {
+        grid-area: d;
+    }
+
+
+
+    #content {
+        height: 100%;
+    }
+}
+
+/**********************************************************************************/
+/*                                                                                */
+/*                          MEDIA QUERIES + MOBILE FORMAT                         */
+/*                                                                                */
+/**********************************************************************************/
+@media screen and (min-width: 768px) {
+    #pokedex {
+        max-width: 768px;
+    }
+}
+
+@media sceen and (max-width: 768px) {
+    #pokedex {
+        width: 100%;
+    }
 }
 
 /**********************************************************************************/
