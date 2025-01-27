@@ -358,7 +358,10 @@ window.addEventListener('load', async (event) => {
 
             // Portrait
             document.getElementById('portrait').src = pokemon.data.sprites.front_default;
-            document.getElementById('portrait').classList.remove('hide-display');
+            setTimeout(() => {
+                document.querySelector('.loading').classList.add('hide-display');
+                document.getElementById('portrait').classList.remove('hide-display');
+            }, 100);
 
             //stats
             let stats = document.getElementById('stats');
@@ -427,9 +430,6 @@ window.addEventListener('load', async (event) => {
                 w.appendChild(n);
                 w.appendChild(f);
             }
-
-            console.log(pokemon);
-            document.querySelector('.loading').classList.add('hide-display');
         }
     });
 
