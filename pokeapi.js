@@ -365,8 +365,8 @@ window.addEventListener('load', async (event) => {
         let name = searchbox.value.toLowerCase();
         if (name != '') {
             // Reveal the loading dots
-            document.querySelector('.loading').classList.remove('hide-display');
-            document.getElementById('portrait').classList.add('hide-display');
+            document.querySelector('.loading').classList.remove('no-display');
+            document.getElementById('portrait').classList.add('no-display');
 
             // Load in data
             let pokemon = {};
@@ -381,8 +381,8 @@ window.addEventListener('load', async (event) => {
             // Portrait
             document.getElementById('portrait').src = pokemon.data.sprites.front_default;
             setTimeout(() => {
-                document.querySelector('.loading').classList.add('hide-display');
-                document.getElementById('portrait').classList.remove('hide-display');
+                document.querySelector('.loading').classList.add('no-display');
+                document.getElementById('portrait').classList.remove('no-display');
             }, 50);
 
             //stats
