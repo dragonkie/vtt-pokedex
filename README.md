@@ -1,2 +1,2 @@
 # FVTT-PTA3
-Adaptation of pokemon tabletop adventures 3 for foundryvtt
+Pokedex made using the Pokeapi web tool to convert into FoundryVTT compatible JSON

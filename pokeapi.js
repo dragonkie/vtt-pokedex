@@ -250,6 +250,12 @@ function titleCase(string) {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
+
+/**********************************************************************************/
+/*                                                                                */
+/*                          WINDOW CONTENT LOADED FULLY                           */
+/*                                                                                */
+/**********************************************************************************/
 window.addEventListener('load', async (event) => {
     console.log('Content loaded succesfuly');
 
@@ -337,7 +343,7 @@ window.addEventListener('load', async (event) => {
     /*                          SEARCH BUTTON FUNCTIONALITY                           */
     /*                                                                                */
     /**********************************************************************************/
-    let btnSearch = document.querySelector('#search');
+    let btnSearch = document.querySelector('#search-submit');
     btnSearch.disabled = false;
     btnSearch.addEventListener('click', async (event) => {
         let name = searchbox.value.toLowerCase();

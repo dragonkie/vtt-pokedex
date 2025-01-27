@@ -1,0 +1,268 @@
+body {
+    font-family: 'DM Sans', serif;
+    font-optical-sizing: auto;
+    font-size: 18px;
+    margin: 0;
+    color: white;
+    width: 100%;
+    height: 100%;
+    --c-gray1: #393e46;
+    --c-gray2: #535860;
+    --c-gray3: #b9bac4;
+    --c-red1: #ff3f3f;
+    --c-blue1: #00a4d6;
+}
+
+/**********************************************************************************/
+/*                                                                                */
+/*                          UNIVERSAL CLASSES                                     */
+/*                                                                                */
+/**********************************************************************************/
+
+.flexrow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexcol {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexcol>*,
+.flexrow>* {
+    flex: 1;
+}
+
+.no-display {
+    display: none;
+}
+
+.hide-display {
+    opacity: 0%;
+}
+
+/**********************************************************************************/
+/*                                                                                */
+/*                          MEDIA QUERIES + MOBILE FORMAT                         */
+/*                                                                                */
+/**********************************************************************************/
+#pokedex {
+    min-height: 400px;
+    max-height: 850px;
+    height: 100%;
+    border: 15px solid var(--c-red1);
+    margin: auto;
+}
+
+@media screen and (min-width: 600px) {
+    #pokedex {
+        max-width: 850px;
+    }
+}
+
+@media sceen and (max-width: 600px) {
+    #pokedex {
+        width: 100%;
+    }
+}
+
+
+
+.loading {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    height: 25px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .dot {
+        animation-iteration-count: infinite;
+        animation-duration: 3s;
+        animation-name: loading-dot;
+        margin: auto;
+        height: 15px;
+        width: 15px;
+        border-radius: 100%;
+        display: inline-block;
+        background-color: var(--c-gray2);
+    }
+}
+
+#name {
+    font-size: 26px;
+}
+
+#display {
+    flex: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 10px;
+}
+
+#stats {
+    flex: 0 0;
+    width: 250px;
+
+    >* {
+        margin: 0 15px 0 0;
+    }
+}
+
+#card {
+    border-bottom: 15px solid var(--c-red1);
+    background-color: var(--c-gray1);
+    padding: 10px;
+}
+
+#details {
+    flex: 1;
+
+    >* {
+        margin: 0 0 5px 0;
+        flex: 1;
+    }
+}
+
+#types>* {
+    margin: 0 5px 0 0;
+}
+
+.stat {
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+    flex: 0;
+    text-align: left;
+
+    .label {
+        text-align: left;
+        flex: 2;
+    }
+
+    .value {
+        text-align: right;
+        flex: 1;
+    }
+}
+
+#portrait {
+    --grid-scale: 40px;
+    flex: 0 0;
+    display: block;
+    image-rendering: pixelated;
+    background-color: var(--c-blue1);
+    background-size: var(--grid-scale) var(--grid-scale);
+    background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
+    animation-name: grid-pan;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.grid-background {
+    box-sizing: border-box;
+    border: 1px solid white;
+    --grid-scale: 40px;
+    background-color: var(--c-blue1);
+    background-size: var(--grid-scale) var(--grid-scale);
+    background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
+    animation-name: grid-pan;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.tab-select {
+    transition: color 0.25s;
+    margin-right: 15px;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--c-blue1);
+    }
+
+    &.active {
+        color: var(--c-blue1);
+    }
+}
+
+.no-display .active {
+    display: none;
+}
+
+.tab {
+    display: none;
+
+    &.active {
+        display: block;
+        overflow: auto;
+    }
+}
+
+#navigation {
+    background-color: var(--c-gray1);
+    border-bottom: solid 3px rgb(255, 63, 63);
+    color: white;
+    padding: 5px 15px;
+}
+
+#content {
+    padding: 5px;
+    background-color: var(--c-gray2);
+    border: solid 10px var(--c-gray1);
+    overflow: auto;
+    height: 50vh;
+}
+
+.data-block {
+    margin: 0 0 10px 0;
+}
+
+/**********************************************************************************/
+/*                                                                                */
+/*                          ANIMATIONS + KEYFRAMES                                */
+/*                                                                                */
+/**********************************************************************************/
+
+.paused {
+    animation-play-state: paused;
+}
+
+@keyframes loading-dot {
+    0% {
+        transform: translate(0, 100%);
+    }
+
+    30% {
+        transform: translate(0, 100%);
+    }
+
+    50% {
+        transform: translate(0, -100%);
+    }
+
+    70% {
+        transform: translate(0, 100%);
+    }
+
+    100% {
+        transform: translate(0, 100%);
+    }
+}
+
+@keyframes grid-pan {
+    0% {
+        background-position: 0px 0px;
+    }
+
+    100% {
+        background-position: var(--grid-scale) var(--grid-scale);
+    }
+}

@@ -1,24 +1,15 @@
 <!DOCTYPE html>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="main.css">
-<script src="pokeapi.js"></script>
 <html lang="en">
-
 <head>
-    Pokedex FVTT
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <script src="pokeapi.js"></script>
 </head>
-
-<body style="padding: 15px;">
+<body>
     <!-- Search index -->
-
-    <form id="search-filters" style="margin: 0 0 15px 0;">
-        <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
-        <input id="search" type="button" value="search" disabled>
-    </form>
     <section id="pokedex">
         <div class="flexrow" id="card">
             <div id="display">
@@ -34,7 +25,7 @@
             <div id="details">
                 <b id="name">N/A</b>
                 <div id="types" style="flex: 0;">
-                    <span id="type-1"></span>
+                    <span id="type-1">None</span>
                     <span id="type-2"></span>
                 </div>
                 <div id="stats" class="flexrow">
@@ -84,6 +75,12 @@
                     <div id="egg-types" style="display: inline;">?</div>
                 </div>
             </div>
+            <div id="search">
+                <form id="search-filters" style="margin: 0 0 15px 0;">
+                    <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
+                    <input id="search-submit" type="button" value="search" disabled>
+                </form>
+            </div>
         </div>
         <div id="navigation">
             <a class="tab-select active" data-tab="bio">Description</a>
@@ -101,10 +98,6 @@
     </section>
 
 </body>
-
-
-
 <datalist id="pokemon-names">
 </datalist>
-
 </html>
