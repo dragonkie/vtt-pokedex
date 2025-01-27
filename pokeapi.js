@@ -264,6 +264,7 @@ window.addEventListener('load', async (event) => {
     // Adds mobile styling if we detect someone on a device without a mouse
     if (isMobile()) document.querySelector('body').classList.add('mobile');
     window.addEventListener('resize', () => {
+        // Toggle mobile classes
         if (isMobile()) document.querySelector('body').classList.add('mobile');
         else document.querySelector('body').classList.remove('mobile');
     });
@@ -376,7 +377,7 @@ window.addEventListener('load', async (event) => {
             setTimeout(() => {
                 document.querySelector('.loading').classList.add('hide-display');
                 document.getElementById('portrait').classList.remove('hide-display');
-            }, 100);
+            }, 50);
 
             //stats
             let stats = document.getElementById('stats');
