@@ -76,8 +76,18 @@ body {
   position: relative;
 }
 
+#details {
+  flex: 1;
+}
+
+#stats {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
 #stats .stat {
   text-align: left;
+  text-wrap: nowrap;
 }
 #stats .stat > * {
   display: inline;
