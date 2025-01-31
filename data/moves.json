@@ -1,0 +1,572 @@
+[
+    {
+        "name": "Absorb",
+        "damage": "2d8",
+        "uses": "3/day",
+        "description": "On hit, you regain HP equal to half of the damage dealt."
+    },
+    {
+        "name": "Accelerock",
+        "damage": "2d6",
+        "uses": "At-Will",
+        "description": "Accelerock has Priority."
+    },
+    {
+        "name": "Acid Spray",
+        "damage": "1d20",
+        "uses": "3/day",
+        "description": "On hit, the target’s Special Defense is -1 for 10 mins. "
+    },
+    {
+        "name": "Acrobatics",
+        "damage": "3d12",
+        "uses": "1/day",
+        "description": "Acrobatics cannot be used if you have a held item."
+    },
+    {
+        "name": "Acupressure",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Target an ally or yourself. The target’s Attack, Special Attack, Defense, Special Defense, or Speed is raised +2 for five mins. "
+    },
+    {
+        "name": "Aerial Ace",
+        "damage": "3d8",
+        "uses": "3/day",
+        "description": "You can’t miss if the targets defence is 15 or lower."
+    },
+    {
+        "name": "Soak",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, put a Soak Coat on the target. The Coat has the following ability: You lose your current Types and become only Water-type for 10 mins."
+    },
+    {
+        "name": "Softboiled",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Target an ally or yourself. The target is healed HP equal to half of the target’s Max HP."
+    },
+    {
+        "name": "Solar Beam",
+        "damage": "5d12",
+        "uses": "1/day",
+        "description": "On hit, you lose HP equal to half of the damage you deal. Solar Beam is a two-turn move unless it is Sunny. On the first turn, do nothing. On the second turn or if it is Sunny, roll Solar Beam’s Accuracy Check and damage."
+    },
+    {
+        "name": "Solar Blade",
+        "damage": "5d12",
+        "uses": "1/day",
+        "description": "On hit, you lose HP equal to half of the damage you deal. Solar Blade is a two-turn move unless it is Sunny. On the first turn, do nothing. On the second turn or if it is Sunny, move up to twice your movement speed, then roll Solar Blade’s Accuracy Check and damage."
+    },
+    {
+        "name": "Sonic Boom",
+        "damage": "10",
+        "uses": "At-Will",
+        "description": "Do not add bonuses of any kind to this damage."
+    },
+    {
+        "name": "Spark",
+        "damage": "3d8",
+        "uses": "3/day",
+        "description": "On hit, if you got 14 or higher on Accuracy Check, the target is Paralyzed."
+    },
+    {
+        "name": "Sparkling Aria",
+        "damage": "",
+        "uses": "1/ day",
+        "description": "Sparkling Aria cures any ally’s Burns within range without damaging them."
+    },
+    {
+        "name": "Spicy Extract",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Target an ally, a foe, or yourself. The target’s Attack is +3 and the target’s Defense is -3 for 10 mins. Spicy Extract cannot miss."
+    },
+    {
+        "name": "Spider Web",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target is bound in place for 1d6 turns."
+    },
+    {
+        "name": "Spike Cannon",
+        "damage": "1d4",
+        "uses": "At-Will",
+        "description": "Spike Cannon has -2 during Accuracy Check. Spike Cannon is a Scatter attack. Up to 5 attacks."
+    },
+    {
+        "name": "Spike - Ranged(20ft burst) Ground Effect",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Place the Spikes Hazard in the area surrounding you. Spikes Hazard has the following ability: When a foe moves through Spikes Hazard during their turn and are on the ground, they lose 1/6th of their Max HP. This Hazard disappears after 2 mins."
+    },
+    {
+        "name": "Spiky Shield",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Spiky Shield is used as a Reaction. If an enemy within melee range would hit you with an attack, use Spiky Shield to instead ignore the damage and any effects of the attack, and also the enemy loses HP equal to 1/6th of its Max HP."
+    },
+    {
+        "name": "Spin Out",
+        "damage": "3d12",
+        "uses": "1/day",
+        "description": "On hit, your Speed is -2 for 10 mins. "
+    },
+    {
+        "name": "Spirit Break",
+        "damage": "3d10",
+        "uses": "3/day",
+        "description": "On hit, the target’s Special Attack is -1 for 10 mins."
+    },
+    {
+        "name": "Spirit Shackle",
+        "damage": "3d10",
+        "uses": "3/day",
+        "description": "On hit, the target is bound to the ground for 1d6 rounds. "
+    },
+    {
+        "name": "Spit Up",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Destroy up to 3 of your Coats of Stuff. For every Coat of Stuff you destroy, Spit Up deals an additional 2d10 damage."
+    },
+    {
+        "name": "Splash",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "Instead of making an Accuracy Check, roll 1d20. On 18 or higher, all adjacent foes are moved 5 ft away from the user."
+    },
+    {
+        "name": "Spore",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target is put to Sleep."
+    },
+    {
+        "name": "Stealth Rock",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Place a Stealth Rock Hazard adjacent to you. Stealth Rock Hazard has the following ability: If a foe moves within 20 ft of Stealth Rock Hazard, it will hurl itself at the foe, destroying itself and dealing 2d12 Rock-type damage to the foe without needing an Accuracy Check. This Hazard disappears after 2 mins."
+    },
+    {
+        "name": "Steamroller",
+        "damage": "2d8",
+        "uses": "At-Will",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, the target is Stunned."
+    },
+    {
+        "name": "Steel Beam",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, you lose HP equal to half of the damage you deal. Steel Roller can only be used if you are in the area of a Terrain move, and destroys that Terrain when used."
+    },
+    {
+        "name": "Steel Wing",
+        "damage": "2d8",
+        "uses": "At-Will",
+        "description": "On hit, the target’s Defense is -1 for 10 mins. "
+    },
+    {
+        "name": "Sticky Web",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Place the Sticky Web Hazard in the area surrounding you. Sticky Web Hazard has the following ability: Foes moving through Sticky Web Hazard on the ground have -25ft movement per turn, to a minimum of 5ft. This Hazard disappears after 2 mins."
+    },
+    {
+        "name": "Stockpile",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "Put a Stuff Coat on yourself, unless you already have 3 Coats of Stuff. The Coat has the following ability: Your Defense and Special Defense are +1 if you have 1 or 2 Coats of Stuff. If you have 3 Coats of Stuff, your Defense and Special Defense are +2. These Coats last for 2 mins."
+    },
+    {
+        "name": "Stomp",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, the target is Stunned."
+    },
+    {
+        "name": "Stomping Tantrum",
+        "damage": "3d12",
+        "uses": "1/day",
+        "description": "If you missed with your last attack during the last round, Stomping Tantrum has 5d12 for damage instead."
+    },
+    {
+        "name": "Stone Axe",
+        "damage": "3d8",
+        "uses": "3/day",
+        "description": "On hit, the target gains a Splinters Coat unless it already has one. The coat has the following ability: After acting, roll 1d20; on a result of 16 or better, destroy this coat; otherwise, take 2d4 damage. This Coat lasts for 3 mins, or until you are at 0 or less HP."
+    },
+    {
+        "name": "Stone Edge",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, Stone Edge is a critical hit."
+    },
+    {
+        "name": "Storm Throw",
+        "damage": "2d8",
+        "uses": "3/day",
+        "description": "On hit, Storm Throw always counts as a critical hit and moves the target 5ft away from you. "
+    },
+    {
+        "name": "Sparkle",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, if you got 14 or higher on Accuracy Check, the target is Paralyzed."
+    },
+    {
+        "name": "Sunny Day",
+        "damage": "",
+        "uses": "3/day",
+        "description": "You create a circle of Sunny Weather with a 60ft diameter. Within the Sunny weather, Fire-type attacks deal an additional 8 damage and Water-type attacks deal 8 less damage. This weather disappears after 2 mins."
+    },
+    {
+        "name": "Super Fang",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target’s current HP is halved. "
+    },
+    {
+        "name": "Superpower",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, your Attack and Defense is -2 for 10 mins."
+    },
+    {
+        "name": "Supersonic",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "Supersonic has -8 during Accuracy Check. On hit, the target is Confused. "
+    },
+    {
+        "name": "Surf",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, you lose HP equal to 1/4th of your Max HP. Surging Wave has a recharge turn and -2 during Accuracy Check."
+    },
+    {
+        "name": "Swagger",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target is Confused and the target’s Attack is +4 until they are no longer Confused. "
+    },
+    {
+        "name": "Swallow",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Destroy up to 3 of your Coats of Stuff. For every Coat of Stuff you destroy, Swallow heals you 25 HP."
+    },
+    {
+        "name": "Sweet Kiss",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target is Confused. "
+    },
+    {
+        "name": "Sweet Scent",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, your next attack against the same target has +1 during Accuracy Check."
+    },
+    {
+        "name": "Swift",
+        "damage": "",
+        "uses": "3/day",
+        "description": "You can’t miss targets with less than 15 Special Defense. "
+    },
+    {
+        "name": "Switcheroo",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, you and the target trade any held items. If only you or the target has an item, take or give the item to exchange who has possession of it."
+    },
+    {
+        "name": "Synchronoise",
+        "damage": "",
+        "uses": "3/ day",
+        "description": "Synchronoise can’t hit targets unless they share at least one type with you. "
+    },
+    {
+        "name": "Synthesis",
+        "damage": "",
+        "uses": "1/day",
+        "description": "You are healed HP equal to half of your Max HP. If you are within Sunny Weather, you are healed HP equal to 3/4ths of your Max HP instead."
+    },
+    {
+        "name": "Tackle",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "At-Will"
+    },
+    {
+        "name": "Tail Slap",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "Tail Slap has -2 during Accuracy Check. Tail Slap is a Scatter attack. Up to 5 attacks."
+    },
+    {
+        "name": "Take Down",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, you lose HP equal to 1/4th of the damage you deal. "
+    },
+    {
+        "name": "Tar Shot",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Put a Tar Coat on the target. The Coat has the following ability: Your Speed is -2. If you are hit by a Fire-type attack, you take +8 damage. This Coat lasts for 2 mins."
+    },
+    {
+        "name": "Taunt",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target may only use attacks that target you or your allies for 1 min."
+    },
+    {
+        "name": "Tea Time",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Any target holding a Berry immediately consumes it. "
+    },
+    {
+        "name": "Teeter Dance",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, all targets are Confused."
+    },
+    {
+        "name": "Teleport",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Teleport may be used as a Reaction. Teleport moves you up to 50ft away in your line of sight. If an enemy would hit you with a move that deals damage, use Teleport as a Reaction to move up to 50ft away in your line of sight and take only 1/4th the damage you would have taken from the attack."
+    },
+    {
+        "name": "Terrain Pulse",
+        "damage": "",
+        "uses": "3/day",
+        "description": "If used while you are in the area of a Terrain move, Terrain Pulse has 5d8 for damage instead and its type changes to match the terrain. "
+    },
+    {
+        "name": "Thief",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, steals the target’s held item, if any."
+    },
+    {
+        "name": "Thrash",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Thrash is a twoturn move. On each turn, move to the closest character within 25 ft that you can reach, and roll this move’s Accuracy Check and damage against them."
+    },
+    {
+        "name": "Throat Chop",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target may not use attacks or abilities that require the use of the target’s voice for 5 mins. "
+    },
+    {
+        "name": "Thunder",
+        "damage": "",
+        "uses": "1/ day",
+        "description": "On hit, you lose HP equal to 1/3rd of the damage you deal and if you got 14 or higher on Accuracy Check, the targets are Paralyzed. Thunder has -2 during Accuracy Check unless it’s Raining. "
+    },
+    {
+        "name": "Thunder Fang",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, the target is randomly either Stunned or Paralyzed. Thunder Punch has -2 during Accuracy Check. On hit, if you got 17 or higher on Accuracy Check, the target is Paralyzed."
+    },
+    {
+        "name": "Thunder Shock",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, the target is Paralyzed. Thunder Wave has -2 during Accuracy Check. On hit, the target is Paralyzed. "
+    },
+    {
+        "name": "Thunderbolt",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, the target is Paralyzed."
+    },
+    {
+        "name": "Tidy Up",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Any Hazards or Coats within range are destroyed. If you destroyed any Hazards or Coats, your Attack is +1 and your Speed is +1 for 10 mins."
+    },
+    {
+        "name": "Torch Song",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, your Special Attack is +2 for 10 mins. "
+    },
+    {
+        "name": "Toxic",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target is Toxified. Toxic has -3 during Accuracy Check, unless the user is Poison type."
+    },
+    {
+        "name": "Toxic Spikes",
+        "damage": "",
+        "uses": "3/day",
+        "description": "Place the Toxic Spikes Hazard in the area surrounding you. Toxic Spikes Hazard has the following ability: When a foe moves through Toxic Spikes Hazard during their turn and are on the ground, they are Poisoned. If the Toxic Spikes Hazard has multiple layers, it will Toxify foes instead of Poisoning them instead. This Hazard disappears after 2 mins."
+    },
+    {
+        "name": "Toxic Thread",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target is Poisoned and the target’s Speed is -1 until they are no longer Poisoned. "
+    },
+    {
+        "name": "Trailblaze",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, your Speed is +1 for 10 mins."
+    },
+    {
+        "name": "Transform",
+        "damage": "",
+        "uses": "1/day",
+        "description": "You transform into a copy of the target changing all of your stats except for HP. You copy its stats, skills, and passives. You can use any of the target’s moves. While transformed, you lose access to your regular moves, skills, passives, and biology. Except for stats, this information is not provided to you. Transform may not target Legendary Pokémon. Transform lasts for 2 hours or until Ditto chooses to change back as an action. Transform fails if used by anything but a Ditto."
+    },
+    {
+        "name": "Triple Arrows",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, any target’s Defense is -1 for 10 mins. "
+    },
+    {
+        "name": "Triple Axel",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target’s Defense is -1 for 10 mins. "
+    },
+    {
+        "name": "Triple Dive",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target’s Defense is -1 for 10 mins. "
+    },
+    {
+        "name": "Triple Kick",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target’s Defense is -1 for 10 mins. "
+    },
+    {
+        "name": "Trop Kick",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target’s Attack is -1 for 10 mins."
+    },
+    {
+        "name": "Twineedle",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On either hit, if you got 14 or higher on Accuracy Check, the target is Poisoned. "
+    },
+    {
+        "name": "Twister",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, if you got 18 or higher on Accuracy Check, the target is Stunned."
+    },
+    {
+        "name": "Water Gun",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, if you got 16 or higher on Accuracy Check, the target is Confused. "
+    },
+    {
+        "name": "Water Pulse",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, if you got 16 or higher on Accuracy Check, the target is Confused. "
+    },
+    {
+        "name": "Water Shuriken",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, if you got 16 or higher on Accuracy Check, the target is Stunned. "
+    },
+    {
+        "name": "Water Sport",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "Put a Water Coat on the target or yourself. The Coat has the following ability: Reduce damage from Fire attacks that hit you by 10. This Coat lasts for 2 mins."
+    },
+    {
+        "name": "Water Spout",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, if you are at Max HP, Water Spout has 5d12 for damage instead. "
+    },
+    {
+        "name": "Waterfall",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, if you got 16 or higher on Accuracy Check, the target is Stunned. "
+    },
+    {
+        "name": "Weather Ball",
+        "damage": "",
+        "uses": "3/day",
+        "description": "If within weather, Weather Ball has 5d8 for damage instead and its type changes to match the weather. "
+    },
+    {
+        "name": "Whirlpool",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, the target is bound in place for 1d4 rounds. For each round the target is bound, it takes 1d4 damage on its turns. "
+    },
+    {
+        "name": "Whirlwind",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, moves the target 60ft away. "
+    },
+    {
+        "name": "Wild Charge",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, you lose HP equal to 1/4th of the damage you deal. "
+    },
+    {
+        "name": "Will-O-Wisp",
+        "damage": "",
+        "uses": "1/day",
+        "description": "On hit, the target is Burned. "
+    },
+    {
+        "name": "Wing Attack",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "At-Will"
+    },
+    {
+        "name": "Wish",
+        "damage": "",
+        "uses": "1/day",
+        "description": "Target an ally or yourself. After the target acts during the next round, they are healed HP equal to half of the target’s Max HP."
+    },
+    {
+        "name": "Wonder Room",
+        "damage": "",
+        "uses": "3/day",
+        "description": "You create a circle of Wonderful Terrain with a 60ft diameter. Anyone who attacks within the Wonderful terrain makes Attack Accuracy Checks against Special Defense and Special Attack Accuracy Checks against Defense. This terrain disappears after 2 mins."
+    },
+    {
+        "name": "Wood Hammer",
+        "damage": "",
+        "uses": "3/day",
+        "description": "On hit, you lose HP equal to 1/3rd of the damage you deal. "
+    },
+    {
+        "name": "Wrap",
+        "damage": "",
+        "uses": "At-Will",
+        "description": "On hit, the target is bound to you for 1d4 rounds. For each round the target is bound, it takes 1d4 damage on its turns. "
+    }
+]

@@ -18,7 +18,7 @@
             <div id="display">
                 <div class="grid-background">
                     <img id="portrait" class="no-display">
-                    <div class="loading">
+                    <div class="loading no-display">
                         <div class="ring outer"></div>
                         <div class="ring center"></div>
                         <div class="ring inner"></div>
@@ -62,11 +62,11 @@
                     </div>
                 </div>
                 <div id="size" class="flexrow">
-                    <div>
+                    <div style="white-space: nowrap;">
                         <b style="display: inline;">Height:</b>
                         <div id="height" style="display: inline;">?</div>
                     </div>
-                    <div>
+                    <div style="white-space: nowrap;">
                         <b style="display: inline;">Weight:</b>
                         <div id="weight" style="display: inline;">?</div>
                     </div>
@@ -76,12 +76,30 @@
                     <div id="egg-types" style="display: inline;">?</div>
                 </div>
             </div>
-            <div id="search">
-                <form id="search-form" style="margin: 0 0 15px 0;">
-                    <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
-                    <input id="search-submit" type="submit" disabled>
-                </form>
-            </div>
+            <form id="search">
+                <b style="text-align: center;">Search</b>
+                <div class="field">
+                    <label><b>Name:</b></label>
+                    <div class="wrap flexrow">
+                        <input id="search-name" type="text" placeholder="Name" list="pokemon-names" autocomplete="on">
+                    </div>
+                </div>
+                <div class="field">
+                    <label><b>Types:</b></label>
+                    <div class="wrap flexrow">
+                        <input id="search-name" type="text" placeholder="Type 1" list="pokemon-names" autocomplete="on">
+                        <input id="search-name" type="text" placeholder="Type 2" list="pokemon-names" autocomplete="on">
+                    </div>
+                </div>
+                <div class="field">
+                    <label><b>Egg:</b></label>
+                    <div class="wrap flexrow">
+                        <input id="search-name" type="text" placeholder="Egg Group" list="pokemon-names" autocomplete="on">
+                    </div>
+                </div>
+                <input id="search-submit" type="submit" disabled>
+
+            </form>
         </div>
         <div id="navigation">
             <a class="tab-select active" data-tab="bio">Description</a>
@@ -99,7 +117,9 @@
     </section>
 
 </body>
-<datalist id="pokemon-names">
-</datalist>
+<datalist id="pokemon-eggs"></datalist>
+<datalist id="pokemon-moves"></datalist>
+<datalist id="pokemon-names"></datalist>
+<datalist id="pokemon-types"></datalist>
 
 </html>

@@ -1,12 +1,13 @@
 class pokeapi {
     static url = 'https://pokeapi.co/api/v2/';
     static async berry(name = '') { return await this.request(this.url + 'berry/' + name) };
+    static async egg(name = '') { return await this.request(this.url + 'egg-group/' + name) };
+    static async evolution(name = '') { return await this.request(this.url + 'evolution-chain/' + name) };
     static async item(name = '') { return await this.request(this.url + 'item/' + name) };
     static async move(name = '') { return await this.request(this.url + 'move/' + name) };
     static async pokemon(name = '') { return await this.request(this.url + 'pokemon/' + name) };
     static async species(name = '') { return await this.request(this.url + 'pokemon-species/' + name) };
-    static async egg(name = '') { return await this.request(this.url + 'egg-group/' + name) };
-    static async evolution(name = '') { return await this.request(this.url + 'evolution-chain/' + name) };
+    static async type(name = '') { return await this.request(this.url + 'type/' + name) };
 
     static async request(url) {
         try {
@@ -89,13 +90,27 @@ class pokeapi {
                 let skip = false;
                 for (const f of pokemon.moves) if (f.name == i.move.name) skip = true;
                 if (skip) continue;
-                pokemon.moves.push({
+                let data = await pokeapi.request(i.move.url)
+                let _d = {
                     name: i.move.name,
                     level: d.level_learned_at,
                     method: d.move_learn_method.name,
-                    data: await pokeapi.request(i.move.url),
-                })
+                    data: data
+                }
+                _d.type = data.type.name;
+                _d.category = data.meta.category.name;
+                _d.accuracy = data.accuracy;
+                _d.id = data.id;
+                _d.ailment = {
+                    name: data.meta.ailment.name,
+                    chance: data.meta.ailment_chance,
+                    turns: {
+                        max: data.meta.max_turns,
+                        min: data.meta.min_turns
+                    }
+                }
 
+                pokemon.moves.push(_d);
             }
         }
 
@@ -250,32 +265,59 @@ function titleCase(string) {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
+// DO IT!
+function order66(element) {
+    while (element.lastChild) element.removeChild(element.lastChild);
+}
+
+const pokedex = {
+    names: [],
+    eggs: [],
+    moves: [],
+    types: [],
+}
+
 /**********************************************************************************/
 /*                                                                                */
 /*                          WINDOW CONTENT LOADED FULLY                           */
 /*                                                                                */
 /**********************************************************************************/
 window.addEventListener('load', async (event) => {
-
-    // sync loading ring widths to screen size
-    let loadingContainer = document.querySelector('.loading').getBoundingClientRect();
-    let loadingRings = document.querySelectorAll('.ring');
-    for (const r of loadingRings) r.style.borderWidth = `${loadingContainer.width * 0.05}px`;
-    window.addEventListener('resize', () => {
-        loadingContainer = document.querySelector('.loading').getBoundingClientRect();
-        for (const r of loadingRings) r.style.borderWidth = `${loadingContainer.width * 0.05}px`;
-        console.log('set ring size to: ', loadingContainer.width * 0.05)
-    });
-
-    const pokedex = {
-        names: []
+    // sync loading ring widths to screen size, and watch for it being deleted so it doesnt get evaporated
+    const loadingContainer = document.querySelector('.loading');
+    const loadingRings = document.querySelectorAll('.ring');
+    const observerCallback = (list, observer) => {
+        const rect = loadingContainer.getBoundingClientRect();
+        for (const r of loadingRings) r.style.borderWidth = `${rect.width * 0.05}px`;
     }
 
-    const apinames = await pokeapi.pokemon('?limit=100000&offset=0');
-    let dataset = document.getElementById('pokemon-names');
+    const loadingObserver = new MutationObserver(observerCallback);
+    loadingObserver.observe(loadingContainer, { attributes: true, subtree: true });
 
-    for (const i of apinames.results) pokedex.names.push(i.name);
+    /**********************************************************************************/
+    /*                                                                                */
+    /*                    FILL IN POKEDEX FOR SEARCH INDEX                            */
+    /*                                                                                */
+    /**********************************************************************************/
+    const _apiNames = await pokeapi.pokemon('?limit=100000&offset=0');
+    const _apiEggs = await pokeapi.egg('?limit=100000&offset=0');
+    const _apiMoves = await pokeapi.move('?limit=100000&offset=0');
+    const _apiTypes = await pokeapi.type('?limit=100000&offset=0');
+
+    const _dataNames = document.getElementById('pokemon-names');
+    const _dataEggs = document.getElementById('pokemon-eggs');
+    const _dataMoves = document.getElementById('pokemon-moves');
+    const _dataTypes = document.getElementById('pokemon-types');
+
+    for (const i of _apiNames.results) pokedex.names.push(i.name);
+    for (const i of _apiEggs.results) pokedex.eggs.push(i.name);
+    for (const i of _apiMoves.results) pokedex.moves.push(i.name);
+    for (const i of _apiTypes.results) pokedex.types.push(i.name);
+
     pokedex.names.sort();// sort names alphabetically for faster search queries
+    pokedex.eggs.sort();// sort names alphabetically for faster search queries
+    pokedex.moves.sort();// sort names alphabetically for faster search queries
+    pokedex.types.sort();// sort names alphabetically for faster search queries
 
     console.log(pokedex);
 
@@ -286,7 +328,7 @@ window.addEventListener('load', async (event) => {
     /**********************************************************************************/
     const searchbox = document.getElementById('search-name');
     searchbox.addEventListener('input', (event) => {
-        dataset = document.getElementById('pokemon-names');
+        console.log('updating auto complete list...');
         const query = searchbox.value.toLowerCase();
         const matches = [];
 
@@ -336,14 +378,14 @@ window.addEventListener('load', async (event) => {
             index = Math.min(Math.max(Math.round(index), 0), pokedex.names.length - 1);
         }
         // create new elements
-        let newDataset = document.createElement('datalist');
-        newDataset.id = 'pokemon-names';
+        order66(_dataNames); // KILL THEM ALL!!! MUWAHAHAHAAHA
+        console.log(matches);
         for (const m of matches) {
             const e = document.createElement('option');
             e.value = m;
-            newDataset.appendChild(e);
+            _dataNames.appendChild(e);
         }
-        dataset.replaceWith(newDataset);
+
     })
 
     /**********************************************************************************/
@@ -359,6 +401,8 @@ window.addEventListener('load', async (event) => {
             // Reveal the loading dots
             document.querySelector('.loading').classList.remove('no-display');
             document.getElementById('portrait').classList.add('no-display');
+
+            await (300);
 
             // Load in data
             let pokemon = {};
@@ -423,7 +467,8 @@ window.addEventListener('load', async (event) => {
 
             for (const move of pokemon.vtt.moves) {
                 let w = document.createElement('div');
-                w.classList.add('data-block');
+                w.classList.add('move');
+                w.classList.add(move.type);
 
                 let n = document.createElement('b');
                 n.textContent = move.name;
@@ -447,7 +492,7 @@ window.addEventListener('load', async (event) => {
             console.log(pokemon);
         }
     }
-    document.getElementById('search-form').addEventListener('submit', proccessSearchForm);
+    document.getElementById('search').addEventListener('submit', proccessSearchForm);
     document.querySelector('#search-submit').disabled = false;
 
     /**********************************************************************************/
@@ -464,25 +509,5 @@ window.addEventListener('load', async (event) => {
             document.querySelector(`#${event.target.dataset.tab}`).classList.add('active');
             event.target.classList.add('active');
         })
-    }
-
-    /**********************************************************************************/
-    /*                                                                                */
-    /*                          LOADING SCREEN DOT DELAY                              */
-    /*                                                                                */
-    /**********************************************************************************/
-    let delay = 0;
-    let dots = document.querySelectorAll('.loading .dot');
-
-    for (let i = 0; i < dots.length; i += 1) {
-        let dot = dots[i];
-
-        function triggerAnimation() {
-            console.log('triggered');
-            this.classList.remove('paused');
-        }
-
-        window.setTimeout(triggerAnimation.bind(dot), delay);
-        delay += 250;
     }
 }) 
