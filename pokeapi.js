@@ -29,6 +29,7 @@ class pokeapi {
 
     // converts API data into VTT usable json data
     static async _pokemonToVtt(poke) {
+        console.log('Converting to VTT json...');
         const { data, species, evolution } = poke
         const pokemon = {
             name: data.name,
@@ -43,10 +44,11 @@ class pokeapi {
             hp: { base: Math.round(data.stats[0].base_stat / 10) * 6 },
             atk: { base: Math.round(data.stats[1].base_stat / 10) },
             def: { base: Math.round(data.stats[2].base_stat / 10) },
+            spd: { base: Math.round(data.stats[5].base_stat / 10) },
             satk: { base: Math.round(data.stats[3].base_stat / 10) },
             sdef: { base: Math.round(data.stats[4].base_stat / 10) },
-            spd: { base: Math.round(data.stats[5].base_stat / 10) }
         };
+        for (const [key, value] of Object.entries(pokemon.stats)) pokemon.stats[key].mod = Math.floor(value.base / 2);
         for (const a of data.types) pokemon.types.push(a.type.name);
 
         //adds list of pokemon evoloution options, in order
@@ -66,7 +68,7 @@ class pokeapi {
             }
 
             if (chain.evolution_details.length > 0) data.details = chain.evolution_details[0];
-            if (chain.evolution_details.length > 1) console.error('Fuck there are multi method evos');
+            if (chain.evolution_details.length > 1) console.error('Multi method evoloution...');
 
             // get details for future evolutions
             for (var i = 0; i < chain.evolves_to.length; i++) {
@@ -80,17 +82,19 @@ class pokeapi {
                 if (chain.evolves_to[i]) parseChain(chain.evolves_to[i]);
             }
         }
-
+        console.log('Parsing evoloution chain...');
         parseChain(evolution.chain);
 
         // Add pokemons level up available moves
+        console.groupCollapsed('Adding available moves...')
         for (const i of data.moves) {
             for (const d of i.version_group_details) {
                 if (d.move_learn_method.name == 'machine') continue;
                 let skip = false;
                 for (const f of pokemon.moves) if (f.name == i.move.name) skip = true;
                 if (skip) continue;
-                let data = await pokeapi.request(i.move.url)
+                let data = await pokeapi.request(i.move.url);
+                console.log(`Adding [${data.name}]: `, data);
                 let _d = {
                     name: i.move.name,
                     level: d.level_learned_at,
@@ -98,21 +102,25 @@ class pokeapi {
                     data: data
                 }
                 _d.type = data.type.name;
-                _d.category = data.meta.category.name;
-                _d.accuracy = data.accuracy;
-                _d.id = data.id;
-                _d.ailment = {
-                    name: data.meta.ailment.name,
-                    chance: data.meta.ailment_chance,
-                    turns: {
-                        max: data.meta.max_turns,
-                        min: data.meta.min_turns
+
+                if (data.meta) {
+                    _d.id = data.id;
+                    _d.accuracy = data.accuracy;
+                    _d.category = data.meta.category.name;
+                    _d.ailment = {
+                        name: data.meta.ailment.name,
+                        chance: data.meta.ailment_chance,
+                        turns: {
+                            max: data.meta.max_turns,
+                            min: data.meta.min_turns
+                        }
                     }
                 }
 
                 pokemon.moves.push(_d);
             }
         }
+        console.groupEnd();
 
         pokemon.moves.sort((a, b) => {
             return a.level - b.level;
@@ -123,8 +131,6 @@ class pokeapi {
         let m = [];
         for (const n of pokemon.moves) if (n.method == 'level-up') m.push(n.name);
         let statBonus = this.movePassive(m);
-        console.log(m);
-        console.log(statBonus);
 
         return pokemon;
     }
@@ -319,7 +325,7 @@ window.addEventListener('load', async (event) => {
     pokedex.moves.sort();// sort names alphabetically for faster search queries
     pokedex.types.sort();// sort names alphabetically for faster search queries
 
-    console.log(pokedex);
+    console.log('Finished indexing Pokedex', pokedex);
 
     /**********************************************************************************/
     /*                                                                                */
@@ -328,7 +334,6 @@ window.addEventListener('load', async (event) => {
     /**********************************************************************************/
     const searchbox = document.getElementById('search-name');
     searchbox.addEventListener('input', (event) => {
-        console.log('updating auto complete list...');
         const query = searchbox.value.toLowerCase();
         const matches = [];
 
@@ -379,7 +384,6 @@ window.addEventListener('load', async (event) => {
         }
         // create new elements
         order66(_dataNames); // KILL THEM ALL!!! MUWAHAHAHAAHA
-        console.log(matches);
         for (const m of matches) {
             const e = document.createElement('option');
             e.value = m;
@@ -394,7 +398,8 @@ window.addEventListener('load', async (event) => {
     /*                                                                                */
     /**********************************************************************************/
     async function proccessSearchForm(event) {
-        console.log('Search Pending...')
+        const searchStartTime = performance.now();
+        console.log('Search Pending...');
         if (event.preventDefault) event.preventDefault();
         let name = searchbox.value.toLowerCase();
         if (name != '') {
@@ -409,7 +414,14 @@ window.addEventListener('load', async (event) => {
             pokemon.data = await pokeapi.pokemon(name);
             pokemon.species = await pokeapi.species(pokemon.data.species.name);
             pokemon.evolution = await pokeapi.request(pokemon.species.evolution_chain.url);
+            if (!pokemon.data || !pokemon.species || !pokemon.evolution) {
+                throw new Error(`Failed to fetch data for [${name}]`);
+            } else console.log(`Retrieved data for [${name}]`);
+
+            console.groupCollapsed('Parsing data...');
             pokemon.vtt = await pokeapi._pokemonToVtt(pokemon);
+            console.groupEnd();
+            console.log('Parsing completed!');
 
             // Names
             document.getElementById('name').textContent = titleCase(pokemon.vtt.name);
@@ -489,7 +501,8 @@ window.addEventListener('load', async (event) => {
                 w.appendChild(n);
                 w.appendChild(f);
             }
-            console.log(pokemon);
+            const searchEndTime = performance.now();
+            console.log(`VTT data for [${pokemon.vtt.name}] ready! time elapsed [${Math.round(searchEndTime - searchStartTime) / 1000}s]`, pokemon);
         }
     }
     document.getElementById('search').addEventListener('submit', proccessSearchForm);
